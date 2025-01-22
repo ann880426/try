@@ -1,7 +1,7 @@
 steps:
   # 步驟 1：建置 Docker 容器映像
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/password-xlsx-test/xlsx-api', '.']
+    args: ['build', '-t', 'gcr.io/password-xlsx-test/xlsx-api', 'try/Dockerfile']
 
   # 步驟 2：推送 Docker 容器映像到 Container Registry
   - name: 'gcr.io/cloud-builders/docker'
