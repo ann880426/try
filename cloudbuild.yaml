@@ -1,0 +1,22 @@
+steps:
+  # 步驟 1：建置 Docker 容器映像
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/password-xlsx-test/xlsx-api', '.']
+
+  # 步驟 2：推送 Docker 容器映像到 Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/password-xlsx-test/xlsx-api']
+
+  # 步驟 3：部署到 Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'xlsx-api',
+           '--image', 'gcr.io/password-xlsx-test/xlsx-api',
+           '--region', 'us-central1',
+           '--platform', 'managed',
+           '--allow-unauthenticated']
+
+# 設定環境變數
+substitutions:
+  _REGION: us-central1
+images:
+  - 'gcr.io/password-xlsx-test/xlsx-api'
